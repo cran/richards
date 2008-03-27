@@ -1,0 +1,7 @@
+showNy		'back-fits' of Richards curves with plots
+contourModified	Contour plot of derivatives of 'SSrichards' and simple version of 'SSrichards'
+sourceNy	Source code for (simple versions of) 'SSny?' with fixed 'ny'
+sourceRichards	Source code for simple version of 'SSrichards' and 'SSrichardsE', etc.
+sourceModified	Source code for the 'modified' 'SSrichards', 'SSnyFixed', etc.
+sourceNyExtras	Additional selfStart's with fixed 'ny': The 'modified' are not tested!
+
