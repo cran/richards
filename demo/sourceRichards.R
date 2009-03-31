@@ -15,9 +15,9 @@ sSrichardsLog <- selfStart( ~ d + (a - d) / (1 + (2^ny-1)*exp((input-xmid)/scal)
   function (mCall, data, LHS) initialRichardsLog(mCall, data, LHS), c("a", "d", "xmid", "scal", "ny"))
 
 
-sSrichardsLogBM <- selfStart( ~ d + (a - d) / (1 + (2^(1/m)-1) * exp(b*(input-xmid)))^(m),
+sSrichardsLogBG <- selfStart( ~ d + (a - d) / (1 + (2^(1/g)-1) * exp(b*(input-xmid)))^(g),
   function (mCall, data, LHS) initialRichardsLogB(mCall, data, LHS, 
-            pnames = c("a", "d", "xmid", "b", "m")), c("a", "d", "xmid", "b", "m"))
+            pnames = c("a", "d", "xmid", "b", "g")), c("a", "d", "xmid", "b", "g"))
 
 sSnyFixedLogB <- selfStart( ~ d + (a - d) / (1 + (2^ny-1)*exp(b*(input-xmid)))^(1/ny),
   function (mCall, data, LHS) initialNyFixedLogB(mCall, data, LHS, ny = NULL), c("a", "d", "xmid", "b"))

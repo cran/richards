@@ -10,6 +10,6 @@
         d + (a - d) * exp(-z)
     else {
         z <- (1 + ny * z)
-        ifelse(z > -10000, d + (a - d)/z^(1/ny), d)
+        ifelse(z > -10000, d + (a - d)/z^(1/ny), NaN)
     }
 }

@@ -66,7 +66,7 @@ initialRichardsLogB(mCall, data, LHS, ny = 1, minnrow = 6,
  the slope this curve
  is as
  the slope of the fitted four parameter curve,
- the slops for both curves midway between the asymptotes.
+ the slopes for both curves midway between the asymptotes.
 }
 \value{
   Vector of initial values: 

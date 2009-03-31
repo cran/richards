@@ -5,7 +5,7 @@
 \alias{richards.inv}
 \alias{solveB}
 \alias{solveE}
-\title{ Richards functions }
+\title{ Richards functions: Five parameter (5PL) logistic curves }
 \description{ The Richards function, the inverse of
 the function, and the derivative of \code{richards(x)}
 (and the derivative of \code{richards(x)} with
@@ -57,23 +57,30 @@ solveB(x = x50, a = 0.1, d = 2.4, x50 = 100, b4 = 1, ny = k - 1, k = 2)
     \item{y}{ a numeric vector of values at which to evaluate the function. }
     \item{a}{ a numeric parameter representing the horizontal asymptote on the
               left side (very small values of input) for \code{b} positive,
-              else the horizontal asymptote on the right side. }
+              else the horizontal asymptote on the right side:
+              Zero concentration responce. }
     \item{d}{ a numeric parameter representing the horizontal asymptote on the
               right side (very large values of input) for \code{b} positive,
-              else the horizontal asymptote on the left side. }
+              else the horizontal asymptote on the left side:
+              Infinite concentration responce. }
     \item{b}{ a numeric (reciprocal) scale parameter on the input axis,
-              'growth rate'.  }
+              'growth rate': slope factor.
+     (The 'growth' parameter \code{b} should be negative, and \code{a}
+     is thus the right side (larger) asymptote, for Bertalenffy models.)
+              }
   \item{x50}{ a numeric parameter representing the input value at
-              the center of the curve:
+              the center of the curve: \eqn{IC_{50}}{IC_50}.
               The value of the \code{Richards} function will be midway
               between \code{a} and \code{d} at \code{x50}. }
     \item{e}{ a parameter determine the input value at
               the inflection point of the curve. }
-   \item{ny}{ a numeric parameter that affects near which asymptote maximum
-              'growth' occurs.  }
-    \item{k}{ an alternative numeric parameter for \code{ny}. }
-   \item{b4}{ a numeric parameter giving the (reciprocal) scale parameter of the
-              four parameter logistic curve with slope as the 'richards'
+   \item{ny}{ a numeric shape parameter that affects near
+              which asymptote maximum 'growth' occurs.  }
+    \item{k}{ an alternative numeric parameter for \code{ny}.
+              (The \code{m} of Richards (1959) is \code{k}
+              with \code{ny = k - 1}.) }
+   \item{b4}{ a numeric parameter giving the (reciprocal) scale parameter of
+              the four parameter logistic curve with slope as the 'richards'
               function at \code{x50}, and same asymptotes. }
 }
 \details{ 
@@ -96,7 +103,7 @@ for \code{ny} equal 1 and the argument input the logarithm of \code{x},
 \code{solveB} finds the parameter \code{b} for the Richard curve such
 that the slope of the Richard curve is the same as the slope of
 the four parameter logistic curve with parameter \code{b4} at \code{x}
-(where the asymptotes \code{a} and \code{d} and location \code{x50}
+(where the asymptotes \code{a} and \code{d} (and location \code{x50})
 of the two curves are identical).
 
 See \link{SSny1} for some examples on the same value found by
@@ -108,9 +115,11 @@ should be positive.  For \code{ny > 0} this is always the case
 (since \code{x} and \code{x50} are positive).
 For \code{ny < 0} the power function is undefined for \code{z} negative,
 unless \code{1/ny} is an integer.
-For \code{ny < 0} and \code{1/ny} is an integer the here given
-Richards function will decline after reaching the asymptote \code{d},
-the right hand side asymptote.
+The here given Richards function will for \code{ny < 0} and \code{1/ny}
+an even integer have a local extreme at the asymptote \code{d},
+the right hand side asymptote (\code{b} positive),
+and will for \code{ny < 0} and \code{1/ny} an odd integer
+just pass \code{d} for infinity.
 }
 % In the demo \code{sourceModified} some \code{selfStart} methods
 % are presented with the functions constant the upper asymptote for
@@ -124,6 +133,11 @@ J. Exp. Bot. 10: 290-300.
 Xinyou Yin, Jan Goudriaan, Egbert A. Lantinga, Jan Vos And Huub J. Spiertz:
 A Flexible Sigmoid Function of Determinate Growth.
 2003; Annals of Botany 91: 361-371.
+
+Gottschalk, Paul G., Dunn, John R.:
+The five-parameter logistic:
+a characterization and comparison with the four-parameter logistic.
+2005; Anal Biochem. Aug 1;343:54-65.
 }
 \keyword{ package }
 \examples{
@@ -144,16 +158,18 @@ par(mfrow = c(2, 4))
 
 # pdf("All.pdf")
 
-# pdf("AboveE.pdf")
-aboveE(outer = FALSE, line = 1)
+# pdf("BelowE.pdf")
+belowE(outer = FALSE, line = 1)
 
 # pdf("Extra.pdf")
 extra(outer = FALSE, line = 1)
 
+# pdf("Below.pdf")
+below(outer = FALSE, line = 1)
+
 # pdf("Above.pdf")
 above(outer = FALSE, line = 1)
 
-# pdf("Below.pdf")
-below(outer = FALSE, line = 1)
+for (i in 2:16) print(richards(10000, ny = -1/i))
 }
 

@@ -1,8 +1,10 @@
 `extractEstimates` <-
 function (fits, n = 5) 
 {
-    estimates <- lapply(fits, function(i) if (is.null(i) | class(i) == 
-        "try-error") 
+    invalidFit <- function(fit)
+        is.null(fit) | any(class(fit) == c("try-error", "data-error"))
+    estimates <- lapply(fits, function(i)
+        if (invalidFit(i))
         rep(NA, n)
     else summary(i)$parameters[, "Estimate"])
     result <- matrix(unlist(estimates), ncol = n, byrow = TRUE)
